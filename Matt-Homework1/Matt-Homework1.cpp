@@ -59,22 +59,39 @@ int main() {
 	garage.erase(car_ptr_iterator); // erase (now useless -- no longer owning) pointer `garage[0]`
 
 									// print out the contents of `street`
-	std::cout << "street contains pointers to: ";
-	for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']';
-	std::cout << '\n';
 
 	// print out the contents of `garage`
 	std::cout << "garage contains pointers to: ";
 	for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']';
-	std::cout << '\n';
+	std::cout << std::endl;
+
+	//print out the contetns of `street`
+	std::cout << "street contains pointers to: ";
+	//for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']' << std::endl;
 
 	// exercise: now, use `std::move` from `<algorithm>` to move all cars from `street` to `garage`
 	// see: http://en.cppreference.com/w/cpp/algorithm/move#Example
 	// afterward, make sure to `clear` container `street` (since the pointers will become useless)
 	// see: http://en.cppreference.com/w/cpp/container/vector/clear
 
-	// print out the contents of `street`
-	// print out the contents of `garage`
+	//Homework
+	//moving cars from street to garage
+	int streetSize = street.size();
+	for (size_t i = 0; i < streetSize; i++)
+	{
+		auto street_ptr_iterator = begin(street); // obtaining an hold on to an iterator to pointer `street[0]`
+		garage.push_back(std::move(*street_ptr_iterator)); // transfer ownership from pointer
+		street.erase(street_ptr_iterator);
+	}
+	std::cout << "------------------------------------------------------------" << std::endl;
+	std::cout << std::endl;
+	std::cout << "garage contains pointers to: ";
+	for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']' << std::endl;
 
+	//print out the contetns of `street`
+	std::cout << "street contains pointers to: ";
+	for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']' << std::endl;
 
+	system("pause");
+	return 0;
 }
