@@ -64,11 +64,11 @@ int main() {
 	// print out the contents of `garage`
 	std::cout << "garage contains pointers to: ";
 	for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']';
-	std::cout << std::endl;
+	std::cout << '\n';
 
 	//print out the contetns of `street`
 	std::cout << "street contains pointers to: ";
-	//for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']' << std::endl;
+	//for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']' << '\n';
 
 	// exercise: now, use `std::move` from `<algorithm>` to move all cars from `street` to `garage`
 	// see: http://en.cppreference.com/w/cpp/algorithm/move#Example
@@ -97,9 +97,9 @@ int main() {
 	}
 
 	
-	std::cout << std::endl;
+	std::cout << '\n';
 	std::cout << "garage contains pointers to: ";
-	//for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']' << std::endl;
+	//for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']' << '\n';
 	std::cout << '\n';
 	print_cars(garage);
 
@@ -130,26 +130,24 @@ int main() {
 	garage.erase(garage.begin(), garage.end());
 	
 	
-	std::cout << " -------------------- " << std::endl;
+	std::cout << "-------------------- \n";
 	print_cars(garage);
 
 	
-	system("pause");
 	return 0;
 }
 
 void print_cars(const std::vector<std::unique_ptr<car>>& object)
 {
-	std::cout << "Printing from function" << std::endl;
+	std::cout << "Printing from function\n";
 
 	for (auto & object_car_ptr : object)
 		if (object_car_ptr)
 		{
-			std::cout << '[' << *object_car_ptr << ']' << std::endl;
+			std::cout << '[' << *object_car_ptr << ']' << '\n';
 		}
 		else
 		{
-			std::cout << "nothing to show";
-			std::cout << '\n';
+			std::cout << "nothing to show\n";
 		}
 }
