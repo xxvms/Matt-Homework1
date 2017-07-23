@@ -111,16 +111,29 @@ int main() {
 	
 	// Homework 2 moving Cars back from Garage to street using vector clear and erase, skipping nullptr
 
+
+	//Using clear
+	//for (auto & garage_car_ptr : garage)
+	//{
+	//	street.push_back(std::move(garage_car_ptr));
+	//}
+	//garage.clear();
+
+	//print_cars(street);
+	//print_cars(garage);
+
 	for (auto & garage_car_ptr : garage)
 	{
 		street.push_back(std::move(garage_car_ptr));
-
 	}
-
-	print_cars(street);
 	
+	garage.erase(garage.begin(), garage.end());
+	
+	
+	std::cout << " -------------------- " << std::endl;
+	print_cars(garage);
 
-
+	
 	system("pause");
 	return 0;
 }
