@@ -18,6 +18,7 @@ private:
 std::ostream & operator<<(std::ostream & os, const car & c) {
 	return os << c.brand;
 }
+void print_cars(const std::vector<std::unique_ptr<car>>& object);
 
 int main() {
 	std::vector<std::unique_ptr<car>> street; // initially empty
@@ -72,26 +73,70 @@ int main() {
 	// exercise: now, use `std::move` from `<algorithm>` to move all cars from `street` to `garage`
 	// see: http://en.cppreference.com/w/cpp/algorithm/move#Example
 	// afterward, make sure to `clear` container `street` (since the pointers will become useless)
-	// see: http://en.cppreference.com/w/cpp/container/vector/clear
+	// see:		
 
 	//Homework
 	//moving cars from street to garage
-	int streetSize = street.size();
-	for (size_t i = 0; i < streetSize; i++)
+
+
+	// normal for loop version:
+	
+	//unsigned int streetSize = street.size();
+	//for (size_t i = 0; i < streetSize; i++)
+	//{
+	//	auto street_ptr_iterator = begin(street); // obtaining an hold on to an iterator to pointer `street[0]`
+	//	garage.push_back(std::move(*street_ptr_iterator)); // transfer ownership from pointer
+	//	street.erase(street_ptr_iterator);
+	//}
+	
+	// Range for loop
+	for (auto & street_ptr_iterator : street)
 	{
-		auto street_ptr_iterator = begin(street); // obtaining an hold on to an iterator to pointer `street[0]`
-		garage.push_back(std::move(*street_ptr_iterator)); // transfer ownership from pointer
-		street.erase(street_ptr_iterator);
+		garage.push_back(std::move(street_ptr_iterator));
+		street_ptr_iterator = nullptr;
 	}
-	std::cout << "------------------------------------------------------------" << std::endl;
+
+	
 	std::cout << std::endl;
 	std::cout << "garage contains pointers to: ";
-	for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']' << std::endl;
+	//for (auto & garage_car_ptr : garage) std::cout << '[' << *garage_car_ptr << ']' << std::endl;
+	std::cout << '\n';
+	print_cars(garage);
+
 
 	//print out the contetns of `street`
 	std::cout << "street contains pointers to: ";
-	for (auto & street_car_ptr : street) std::cout << '[' << *street_car_ptr << ']' << std::endl;
+	std::cout << '\n';
+	print_cars(street);
+	
+	// Homework 2 moving Cars back from Garage to street using vector clear and erase, skipping nullptr
+
+	for (auto & garage_car_ptr : garage)
+	{
+		street.push_back(std::move(garage_car_ptr));
+
+	}
+
+	print_cars(street);
+	
+
 
 	system("pause");
 	return 0;
+}
+
+void print_cars(const std::vector<std::unique_ptr<car>>& object)
+{
+	std::cout << "Printing from function" << std::endl;
+
+	for (auto & object_car_ptr : object)
+		if (object_car_ptr)
+		{
+			std::cout << '[' << *object_car_ptr << ']' << std::endl;
+		}
+		else
+		{
+			std::cout << "nothing to show";
+			std::cout << '\n';
+		}
 }
